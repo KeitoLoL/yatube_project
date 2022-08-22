@@ -13,12 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# yatube/urls.py
-from django.contrib import admin
-from django.urls import include, path
+# posts/urls.py
+from django.urls import path
+
+from . import views
 
 urlpatterns = [
-    # импорт правил из приложения posts
-    path('', include('posts.urls')),
-    path('admin/', admin.site.urls),
+    # Главная страница
+    path('', views.index),
+    # Список мороженого
+    path('group/', views.group_posts),
+    # Подробная информация о мороженом. Ждем пременную типа int,
+    #     # и будем использовать ее под именем pk
+    path(
+        'group/<int:pk>/',
+        views.group_posts_detail
+     ),
 ]
+
